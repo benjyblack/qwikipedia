@@ -17,8 +17,7 @@
         "*://*.wikipedia.org/*"
       ],
       "js": [
-        "bower_components/jquery/dist/jquery.min.js",
-        "qwikipedia.js"
+        "dist/qwikipedia.js"
       ],
 	  "css": [
         "css/qwikipedia.css"

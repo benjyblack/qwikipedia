@@ -1,3 +1,4 @@
+const $ = require('jquery-browserify');
 
 document.addEventListener('DOMContentLoaded', function () {
 	
