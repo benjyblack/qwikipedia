@@ -3,17 +3,26 @@
 
   "name": "Qwikipedia",
   "description": "Hover over blue terms in Wikipedia pages to get a popup with a Wikipedia-provided description of that term.",
-  "version": "0.4",
+  "version": "0.5",
 
-  "icons": { "16": "qwiki16.png",
-           "48": "qwiki48.png",
-          "128": "qwiki128.png" },
+  "icons": {
+    "16": "icon-16.png",
+    "48": "icon-48.png",
+    "128": "icon-128.png"
+  },
   
   "content_scripts": [
     {
-      "matches": [ "http://*.wikipedia.org/*" ],
-      "js": [ "jquery.js", "qwiki.js" ],
-	  "css": [ "qwiki.css" ],
+      "matches": [
+        "*://*.wikipedia.org/*"
+      ],
+      "js": [
+        "bower_components/jquery/dist/jquery.min.js",
+        "qwikipedia.js"
+      ],
+	  "css": [
+        "css/qwikipedia.css"
+      ],
 	  "run_at": "document_start"
     }
   ]

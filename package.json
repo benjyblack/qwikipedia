@@ -1,0 +1,23 @@
+{
+  "name": "qwikipedia",
+  "version": "1.0.0",
+  "description": "Hover over blue terms in Wikipedia pages to get a popup with a Wikipedia-provided description of that term.",
+  "main": "qwikipedia.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/benjyblack/qwikipedia.git"
+  },
+  "keywords": [
+    "wikipedia",
+    "productivity"
+  ],
+  "author": "Ben Black",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/benjyblack/qwikipedia/issues"
+  },
+  "homepage": "https://github.com/benjyblack/qwikipedia#readme"
+}
