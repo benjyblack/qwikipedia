@@ -1,36 +1,35 @@
 const $ = require('jquery-browserify');
 const fetch = require('isomorphic-fetch');
+const _ = require('lodash');
 
 const TIMER_LENGTH = 200;
 
-const _urlIsInteresting = (targetUrl) => {
-  let currentUrl = document.URL;
+const onReady = () => {
+  let interestingLinks = getInterestingLinkTags();
+  debugger;
 
-  // if is not a link to a wikipedia page
-  if (targetUrl.indexOf('/wiki/') === -1) {
-    return false;
-  }
-
-  // if is not an anchor reference to this page
-  if (targetUrl.indexOf(currentUrl + '#') !== -1) {
-    return false;
-  }
-
-  // if is not a link to a wikipedia reference to this page
-  if (targetUrl.indexOf('/wiki/Wikipedia:') !== -1) {
-    return false;
-  }
-
-  // if it is a link to a file
-  if (targetUrl.indexOf('/wiki/File:') !== -1) {
-    return false;
-  }
-
-  return true;
+  _.invoke(interestingLinks, 'addClass', 'qwiki-reference');
+  _.invoke(interestingLinks, 'removeAttr', 'title');
 };
 
-document.addEventListener('DOMContentLoaded', function () {
+const urlIsInteresting = (targetUrl, currentUrl) => {
+  return targetUrl &&
+    targetUrl.match('/wiki/') &&
+    !targetUrl.match(currentUrl + '#') &&
+    !targetUrl.match('/wiki/Wikipedia:') &&
+    !targetUrl.match('/wiki/File:');
+};
 
+const getInterestingLinkTags = () => {
+  const interestingTags = $('a').filter((index, linkTag) => {
+    return urlIsInteresting($(linkTag).attr('href'));
+  });
+};
+
+
+document.addEventListener('DOMContentLoaded', onReady);
+
+function x() {
 	// gets given wikipages information
   const getInformation = function (url, callback) {
     return fetch(url).then(function (response) {
@@ -44,16 +43,16 @@ document.addEventListener('DOMContentLoaded', function () {
   };
 
   $('a').each(function () {
-    // prune out unwanted links
-    if (!$(this).attr('href') || !_urlIsInteresting($(this).attr('href'))) {
-      return;
-    }
-
-    // wrap wanted links in our class
-    $(this).wrap('<span class="qwiki-reference" />');
-
-    // remove title attribute, can obscure tooltip box
-    $(this).removeAttr('title');
+    //// prune out unwanted links
+    //if (!$(this).attr('href') || !urlIsInteresting($(this).attr('href')), document.URL) {
+    //  return;
+    //}
+    //
+    //// wrap wanted links in our class
+    //$(this).wrap('<span class="qwiki-reference" />');
+    //
+    //// remove title attribute, can obscure tooltip box
+    //$(this).removeAttr('title');
 
     let tooltipNode;
     let hideTimer;
@@ -130,4 +129,4 @@ document.addEventListener('DOMContentLoaded', function () {
       hide(this);
     });
 	});
-});
+};
