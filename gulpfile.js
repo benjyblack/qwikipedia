@@ -1,20 +1,21 @@
-var gulp = require('gulp');
-var sourcemaps = require('gulp-sourcemaps');
-var babel = require('gulp-babel');
-var concat = require('gulp-concat');
-var uglify = require('gulp-uglify');
-var browserify = require('browserify');
-var source = require('vinyl-source-stream');
-var buffer = require('vinyl-buffer');
-var gutil = require('gulp-util');
+const gulp = require('gulp');
+const sourcemaps = require('gulp-sourcemaps');
+const uglify = require('gulp-uglify');
+const browserify = require('browserify');
+const babelify = require('babelify');
+const source = require('vinyl-source-stream');
+const buffer = require('vinyl-buffer');
+const gutil = require('gulp-util');
 
-gulp.task('default', function () {
-  var b = browserify({
+gulp.task('build', () => {
+  const b = browserify({
     entries: './qwikipedia.js',
     debug: true
   });
 
-  return b.bundle()
+  return b
+    .transform(babelify)
+    .bundle()
     .pipe(source('qwikipedia.js'))
     .pipe(buffer())
     .pipe(sourcemaps.init({loadMaps: true}))
@@ -22,4 +23,8 @@ gulp.task('default', function () {
       .on('error', gutil.log)
     .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest('./dist'));
+});
+
+gulp.task('default', () => {
+  gulp.watch('qwikipedia.js', ['build']);
 });

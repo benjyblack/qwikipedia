@@ -6,9 +6,9 @@
   "version": "0.5",
 
   "icons": {
-    "16": "icon-16.png",
-    "48": "icon-48.png",
-    "128": "icon-128.png"
+    "16": "res/icon-16.png",
+    "48": "res/icon-48.png",
+    "128": "res/icon-128.png"
   },
   
   "content_scripts": [
