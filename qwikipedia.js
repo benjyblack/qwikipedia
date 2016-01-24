@@ -5,24 +5,26 @@ const _ = require('lodash');
 const TIMER_LENGTH = 200;
 
 const onReady = () => {
-  let interestingLinks = getInterestingLinkTags();
+  let allLinkTags = $('a');
+  let interestingLinkTags = _.filter(allLinkTags, isLinkTagInteresting);
   debugger;
 
-  _.invoke(interestingLinks, 'addClass', 'qwiki-reference');
-  _.invoke(interestingLinks, 'removeAttr', 'title');
+  _.invoke(interestingLinkTags, 'addClass', 'qwiki-reference');
+  _.invoke(interestingLinkTags, 'removeAttr', 'title');
 };
 
-const urlIsInteresting = (targetUrl, currentUrl) => {
-  return targetUrl &&
-    targetUrl.match('/wiki/') &&
-    !targetUrl.match(currentUrl + '#') &&
-    !targetUrl.match('/wiki/Wikipedia:') &&
-    !targetUrl.match('/wiki/File:');
+const isLinkTagInteresting = (targetUrl) => {
+  let linkTagURL = targetUrl.getAttribute('href');
+  return linkTagURL &&
+    linkTagURL.match('/wiki/') &&
+    !linkTagURL.match(document.URL + '#') &&
+    !linkTagURL.match('/wiki/Wikipedia:') &&
+    !linkTagURL.match('/wiki/File:');
 };
 
 const getInterestingLinkTags = () => {
-  const interestingTags = $('a').filter((index, linkTag) => {
-    return urlIsInteresting($(linkTag).attr('href'));
+  return $('a').filter((index, linkTag) => {
+    return isLinkTagInteresting($(linkTag).attr('href'));
   });
 };
 
@@ -44,7 +46,7 @@ function x() {
 
   $('a').each(function () {
     //// prune out unwanted links
-    //if (!$(this).attr('href') || !urlIsInteresting($(this).attr('href')), document.URL) {
+    //if (!$(this).attr('href') || !isURLInteresting($(this).attr('href')), document.URL) {
     //  return;
     //}
     //
