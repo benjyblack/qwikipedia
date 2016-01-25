@@ -4,12 +4,13 @@ import fetch from 'isomorphic-fetch';
 import  _ from 'lodash';
 
 const BASE_URL = 'https://wikipedia.org';
+const POPOVER_ID = 'qwikipop';
 const TOOLTIP_DELAY = 500;
-const TOOLTIP_HTML = '<div data-id="qwiki-pop" class="popover" role="tooltip">' +
-  '<div class="arrow"></div>' +
-  '<h3 class="popover-title"></h3>' +
-  '<div class="popover-content"></div>' +
-'</div>';
+const TOOLTIP_HTML = `<div data-id="${POPOVER_ID}" class="popover" role="tooltip">
+  <div class="arrow"></div>
+  <h3 class="popover-title"></h3>
+  <div class="popover-content"></div>
+</div>`;
 
 const onReady = () => {
   require('../css/bootstrap.min.css');
@@ -49,7 +50,7 @@ const getTooltipContent = function () {
     const firstParagraph = $(parsedHTML).find(FIRST_PARAGRAPH_SELECTOR);
     const firstParagraphText = firstParagraph.text();
 
-    $('[data-id="qwiki-pop"] .popover-content').text(firstParagraphText);
+    $(`[data-id="${POPOVER_ID}"] .popover-content`).text(firstParagraphText);
   });
 
   return 'Loading...';
