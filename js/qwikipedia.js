@@ -1,9 +1,10 @@
 import $ from 'jquery';
-import './bootstrap';
+import 'bootstrap';
 import fetch from 'isomorphic-fetch';
 import  _ from 'lodash';
 
 const BASE_URL = 'https://wikipedia.org';
+const TOOLTIP_DELAY = 500;
 const TOOLTIP_HTML = '<div data-id="qwiki-pop" class="popover" role="tooltip">' +
   '<div class="arrow"></div>' +
   '<h3 class="popover-title"></h3>' +
@@ -14,18 +15,19 @@ const onReady = () => {
   require('../css/bootstrap.min.css');
 
   const allLinkTags = $('a');
-  const interestingLinkTags = jqfy(_.filter(allLinkTags, isLinkTagInteresting));
+  const interestingLinkTags = jqify(_.filter(allLinkTags, isLinkTagInteresting));
 
   _.invokeMap(interestingLinkTags, 'attr', 'data-toggle', 'popover');
   _.invokeMap(interestingLinkTags, 'attr', 'data-placement', 'bottom');
   _.invokeMap(interestingLinkTags, 'popover', {
     trigger: 'hover',
     template: TOOLTIP_HTML,
+    delay: TOOLTIP_DELAY,
     content: getTooltipContent
   });
 };
 
-const jqfy = _.partialRight(_.map, $);
+const jqify = _.partialRight(_.map, $);
 
 const isLinkTagInteresting = (targetUrl) => {
   const linkTagURL = targetUrl.getAttribute('href');

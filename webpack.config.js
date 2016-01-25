@@ -6,8 +6,8 @@ module.exports = {
   },
   module: {
     loaders: [
-      { test: /\.css$/, loader: 'style!css' },
       { test: /qwikipedia\.js/, loader: 'babel-loader' },
+      { test: /\.css$/, loader: 'style!css' },
       { test: /jquery\.js$/, loader: 'expose?$' },
       { test: /jquery\.js$/, loader: 'expose?jQuery' }
     ]
