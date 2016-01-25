@@ -22,7 +22,11 @@
   "homepage": "https://github.com/benjyblack/qwikipedia#readme",
   "devDependencies": {
     "babel-loader": "^6.2.1",
+    "css-loader": "^0.23.1",
+    "expose-loader": "^0.7.1",
+    "jquery": "^2.2.0",
     "lodash": "^4.0.0",
+    "style-loader": "^0.13.0",
     "webpack": "^1.12.12",
     "webpack-dev-server": "^1.14.1"
   },
