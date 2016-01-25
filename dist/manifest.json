@@ -17,7 +17,7 @@
         "*://*.wikipedia.org/*"
       ],
       "js": [
-        "dist/qwikipedia.js"
+        "qwikipedia.js"
       ],
 	  "run_at": "document_start"
     }
